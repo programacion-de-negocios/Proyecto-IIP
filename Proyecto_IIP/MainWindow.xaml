@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Tipos de Vehiculos" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"/>
+        <ListBox Name="LbTipo_Vehiculo" Grid.Column="0" Grid.Row="0" Margin="30" SelectionChanged="LbTipo_Vehiculo_SelectionChanged"/>
+        <Label Content="Vehiculos" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"/>
+        <ListBox Name="LbVehiculo" Grid.Column="0" Grid.Row="1" Margin="30" />
     </Grid>
 </Window>

@@ -94,14 +94,6 @@ VALUES
 	('UND6112',6),
 	('ZND9643',7)
 GO
-INSERT INTO Cobro.Cobro
-VALUES
-	(1,GETDATE(),GETDATE())
-GO
 
 
-SELECT *FROM Vehiculo.Vehiculo
-GO
 
-SELECT *FROM Vehiculo.Tipo_Vehiculo
-GO
