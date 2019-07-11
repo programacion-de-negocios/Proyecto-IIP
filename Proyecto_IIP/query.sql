@@ -41,9 +41,12 @@ CREATE TABLE Cobro.Cobro(
 	Id_Cobro INT IDENTITY (1,1) NOT NULL
 		CONSTRAINT PK_Id_Cobro PRIMARY KEY CLUSTERED,
 	Id_Vehiculo INT NOT NULL,
-	Hora_Ingreso TIME NOT NULL,
-	Hora_Salida TIME NOT NULL
+	Hora_Ingreso TIME NOT NULL
+		DEFAULT GETDATE(),
+	Hora_Salida TIME,
+	Fecha DATETIME NOT NULL
 )
+
 --CREACION DE LAS LLAVES FORANEAS
 ALTER TABLE Vehiculo.Vehiculo
 	ADD CONSTRAINT
@@ -95,5 +98,16 @@ VALUES
 	('ZND9643',7)
 GO
 
+--PROCEDIMIENTOS ALMACENADOS
+
+CREATE PROC Vehiculo.SP_MostrarVehiculo
+AS BEGIN
+	SELECT a.Placa AS PLACA,b.Nombre AS TIPO, a.Id_Vehiculo, b.Id_Tipo,a.Placa FROM Vehiculo.Vehiculo a INNER JOIN Vehiculo.Tipo_Vehiculo b 
+	ON a.Id_Tipo=b.Id_Tipo
+END
+GO
+
+SELECT * FROM Vehiculo.Vehiculo
+GO
 
 
