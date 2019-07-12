@@ -28,18 +28,7 @@ namespace Proyecto_IIP
         {
             InitializeComponent();
             /*
-            DataTable dt = NVehiculo.MostrarVehiculo();
-
-            IList<Vehiculos> V = new List<Vehiculos>();
-            foreach (DataRow dr in dt.Rows)
-            {
-                V.Add(new Vehiculos
-                {
-                    Placa=dr[0].ToString(),
-                    Tipo=dr[1].ToString()
-                });
-            }
-            LbVehiculo.ItemsSource = V;
+            
             */
         }
 
@@ -49,9 +38,5 @@ namespace Proyecto_IIP
    
         }
     }
-    public class Vehiculos
-    {
-        public string Placa { get; set; }
-        public string Tipo { get; set; }
-    }
+
 }
