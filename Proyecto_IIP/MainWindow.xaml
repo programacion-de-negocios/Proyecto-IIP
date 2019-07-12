@@ -4,20 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto_IIP"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Label Content="Tipos de Vehiculos" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center"/>
-        <ListBox Name="LbTipo_Vehiculo" Grid.Column="0" Grid.Row="0" Margin="30" SelectionChanged="LbTipo_Vehiculo_SelectionChanged"/>
-        <Label Content="Vehiculos" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center"/>
-        <ListBox Name="LbVehiculo" Grid.Column="0" Grid.Row="1" Margin="30" />
+        xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+    <Grid Background="#FFEEEEEE">
+        <StackPanel>
+            <Grid Background="#FF0069C0" Height="10"/>
+            <Grid Margin="5">
+                <Button HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray">
+                    <MaterialDesign:PackIcon Kind="Power"/>
+                </Button>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

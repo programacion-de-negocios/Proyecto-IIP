@@ -27,7 +27,6 @@ namespace Proyecto_IIP
         public MainWindow()
         {
             InitializeComponent();
-            /*
             DataTable dt = NVehiculo.MostrarVehiculo();
 
             IList<Vehiculos> V = new List<Vehiculos>();
@@ -40,7 +39,7 @@ namespace Proyecto_IIP
                 });
             }
             LbVehiculo.ItemsSource = V;
-            */
+            
         }
 
         //EVENTO PARA LLAMAR AL METODO Mostrar_Vehiculo
