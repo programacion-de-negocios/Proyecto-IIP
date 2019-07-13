@@ -41,10 +41,11 @@ CREATE TABLE Cobro.Cobro(
 	Id_Cobro INT IDENTITY (1,1) NOT NULL
 		CONSTRAINT PK_Id_Cobro PRIMARY KEY CLUSTERED,
 	Id_Vehiculo INT NOT NULL,
-	Hora_Ingreso TIME NOT NULL
+	Hora_Ingreso TIME (0) NOT NULL
 		DEFAULT GETDATE(),
-	Hora_Salida TIME,
-	Fecha DATETIME NOT NULL
+	Hora_Salida TIME (0),
+	Fecha DATETIME(0) NOT NULL
+		DEFAULT GETDATE()
 )
 
 --CREACION DE LAS LLAVES FORANEAS
@@ -97,6 +98,22 @@ VALUES
 	('UND6112',6),
 	('ZND9643',7)
 GO
+
+
+INSERT INTO Cobro.Cobro (Id_Vehiculo,Hora_Ingreso,Hora_Salida)
+	VALUES
+	(2,'19:50','21:00')
+GO
+
+SELECT CONVERT (CHAR(5),Hora_Ingreso,108) AS Hora_Entrada,
+CONVERT (CHAR(5),Hora_Salida,108) AS Hora_Salida,
+CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)/60 AS varchar)+':'+
+CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)%60 AS varchar) AS TIEMPO,
+Fecha AS FECHA
+FROM Cobro.Cobro
+WHERE Id_Vehiculo=2
+GO
+
 
 --PROCEDIMIENTOS ALMACENADOS
 
