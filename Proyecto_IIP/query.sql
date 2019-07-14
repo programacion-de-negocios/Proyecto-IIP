@@ -44,7 +44,7 @@ CREATE TABLE Cobro.Cobro(
 	Hora_Ingreso TIME (0) NOT NULL
 		DEFAULT GETDATE(),
 	Hora_Salida TIME (0),
-	Fecha DATETIME(0) NOT NULL
+	Fecha DATE NOT NULL
 		DEFAULT GETDATE()
 )
 
@@ -102,17 +102,24 @@ GO
 
 INSERT INTO Cobro.Cobro (Id_Vehiculo,Hora_Ingreso,Hora_Salida)
 	VALUES
-	(2,'19:50','21:00')
+	(5,'2:00',NULL),
+	(3,'4:00',NULL)
+
 GO
 
+SELECT * FROM Cobro.Cobro
+GO
+
+/*
 SELECT CONVERT (CHAR(5),Hora_Ingreso,108) AS Hora_Entrada,
 CONVERT (CHAR(5),Hora_Salida,108) AS Hora_Salida,
-CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)/60 AS varchar)+':'+
-CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)%60 AS varchar) AS TIEMPO,
+CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)/60 AS CHAR(2))+':'+
+CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)%60 AS CHAR(2)) AS TIEMPO,
 Fecha AS FECHA
 FROM Cobro.Cobro
-WHERE Id_Vehiculo=2
+WHERE Fecha=CAST(GETDATE() AS DATE)
 GO
+*/
 
 
 --PROCEDIMIENTOS ALMACENADOS
@@ -123,6 +130,127 @@ AS BEGIN
 	ON a.Id_Tipo=b.Id_Tipo
 END
 GO
+
+--PROCEDIMIENTO PARA INGRESO AL PARQUEO
+CREATE PROC Vehiculo.SP_IngresoVehiculo
+@Placa NVARCHAR(8),
+@Tipo INT 
+AS
+DECLARE @IdVehiculo INT
+BEGIN TRANSACTION
+	IF NOT EXISTS(SELECT * FROM Vehiculo.Vehiculo WHERE Placa=@Placa)
+		BEGIN
+			INSERT INTO Vehiculo.Vehiculo(Id_Tipo,Placa) VALUES(@Tipo,@Placa)
+			SELECT @IdVehiculo =Id_Vehiculo FROM Vehiculo.Vehiculo WHERE Placa = @Placa
+			INSERT INTO Cobro.Cobro (Id_Vehiculo,Hora_Ingreso) VALUES (@IdVehiculo,GETDATE())
+		END
+	ELSE
+		BEGIN
+			/*
+			Este SELECT nos servira para verificar si se ingresa otro tipo de vehiculo de algun vehiculo
+			ya ingresado previamente en el estacionamiento, en caso de ser asi el insert nos arrojara un
+			error ya que no habrá ningun valor existente(osea NULL) para la variable @idvehiculo
+			*/
+			SELECT @IdVehiculo =Id_Vehiculo FROM Vehiculo.Vehiculo WHERE Placa = @Placa AND Id_Tipo=@Tipo
+			/*
+			La siguiente condicion nos permite verificar si el vehiculo ya se encuentra en el 
+			estacionamiento
+			*/
+			IF NOT EXISTS(SELECT * FROM Cobro.Cobro a INNER JOIN Vehiculo.Vehiculo b
+			ON a.Id_Vehiculo= b.Id_Vehiculo WHERE a.Id_Vehiculo=@IdVehiculo AND b.Id_Tipo=@Tipo 
+			AND a.Hora_Salida IS NULL)
+				BEGIN
+					INSERT INTO Cobro.Cobro (Id_Vehiculo,Hora_Ingreso) VALUES (@IdVehiculo,GETDATE())
+				END
+		END
+COMMIT TRANSACTION
+GO
+
+EXEC Vehiculo.SP_IngresoVehiculo 'AND6666',5
+GO
+--SUPER PROCEDIMIENTO PARA GENERAR EL COBRO!!
+
+CREATE PROC Cobro.SP_SuperCobro
+@IdVehiculo INT 
+AS 
+	--Variables necesarias
+	DECLARE @total DECIMAL(10,2)
+	DECLARE @Horas INT
+	DECLARE @Minutos INT
+	DECLARE @Tipo NVARCHAR(20)
+	DECLARE @Dnulo CHAR(10)
+	BEGIN TRANSACTION
+	--Verificamos que su hora de salida sea nula
+	SELECT @Dnulo= Hora_Salida FROM Cobro.Cobro WHERE Id_Vehiculo=@IdVehiculo
+	--Actualizamos la hora de salida
+	UPDATE Cobro.Cobro SET Hora_Salida = GETDATE() WHERE Id_Vehiculo=@idvehiculo
+	--OBTENER EL TIEMPO QUE ESTUVO EN EL PARQUEO
+	--Obtenemos las horas
+	SELECT @Horas = DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)/60 
+	FROM Cobro.Cobro WHERE Id_Vehiculo=@IdVehiculo
+	--Obtenemos los minutos
+	SELECT @Minutos = DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)%60 
+	FROM Cobro.Cobro WHERE Id_Vehiculo=@IdVehiculo
+	--Obtenemos el tipo de vehiculo
+	SELECT @Tipo = a.Nombre FROM Vehiculo.Tipo_Vehiculo a INNER JOIN Vehiculo.Vehiculo b
+	ON a.Id_Tipo=b.Id_Tipo
+	INNER JOIN Cobro.Cobro c
+	ON b.Id_Vehiculo=c.Id_Vehiculo WHERE c.Id_Vehiculo=@IdVehiculo
+	--Condiciones para realizar el cobro de acuerdo a la cantidad de horas
+	IF((@Horas=0 AND @Minutos<=59) OR (@Horas=1 AND @Minutos=0))
+	BEGIN
+		SET @total=20
+	END
+	ELSE IF((@Horas=1 AND @Minutos<=59) OR (@Horas=2 AND @Minutos=0))
+	BEGIN
+		SET @total=20+10
+	END
+	ELSE IF((@Horas=2 AND @Minutos<=59) OR (@Horas=3 AND @Minutos=0))
+	BEGIN
+		SET @total=20*3
+	END
+	ELSE IF((@Horas=3 AND @Minutos<=59) OR (@Horas=4 AND @Minutos=0))
+	BEGIN
+		SET @total=(20*3)+10
+	END
+	ELSE IF(@Horas>=4)
+	BEGIN
+		SET @total=15*@Horas
+	END
+	--Condiciones para realizar el cobro de acuerdo al tipo de vehiculo
+	IF(@Tipo='Camion' OR @Tipo='Bus' OR @Tipo = 'Rastra')
+		BEGIN
+			SET @total=@total*2
+		END
+
+	IF(@Tipo='Motocicleta')
+		BEGIN
+			SET @total=@total*2
+		END
+
+	SELECT CAST(@Horas as CHAR(1)) +':'+ CAST(@Minutos as CHAR(2)) AS TIEMPO, 
+	+'$.'+CAST (@total AS char)  AS TOTAL, CAST (@Tipo AS NVARCHAR) AS TIPO
+	IF(@Dnulo IS NULL)
+		BEGIN
+			COMMIT 
+		END
+	ELSE
+		BEGIN
+			ROLLBACK
+		END
+GO
+
+--PROCEDIMIENTO PARA EL REPORTE DE INGRESOS
+
+EXEC Cobro.SP_SuperCobro @IdVehiculo=3
+GO
+
+EXEC Cobro.SP_SuperCobro @IdVehiculo=22
+GO
+
+SELECT * FROM Cobro.Cobro
+GO
+
 
 SELECT * FROM Vehiculo.Vehiculo
 GO
