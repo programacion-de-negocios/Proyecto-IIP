@@ -131,6 +131,11 @@ AS BEGIN
 END
 GO
 
+CREATE PROC Vehiculo.SP_MostrarTipo
+AS BEGIN
+	SELECT * FROM Vehiculo.Tipo_Vehiculo
+END
+GO
 --PROCEDIMIENTO PARA INGRESO AL PARQUEO
 CREATE PROC Vehiculo.SP_IngresoVehiculo
 @Placa NVARCHAR(8),

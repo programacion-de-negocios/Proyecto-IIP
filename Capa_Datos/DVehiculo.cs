@@ -63,5 +63,50 @@ namespace Capa_Datos
             }
             return TablaVehiculo;
         }
+        public DataTable MostrarTipo()
+        {
+            DataTable TablaTipoVehiculo = new DataTable();
+            try
+            {
+                SqlCommand SqlCmd = new SqlCommand("Vehiculo.SP_MostrarTipo", SqlCon);
+                SqlCmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter sqlData = new SqlDataAdapter(SqlCmd);
+                using (sqlData)
+                {
+                    sqlData.Fill(TablaTipoVehiculo);
+                }
+            }
+            catch (Exception)
+            {
+                TablaTipoVehiculo = null;
+            }
+            return TablaTipoVehiculo;
+        }
+
+        public string IngresarVehiculo(DVehiculo vehiculo)
+        {
+            string rpta="";
+            SqlCommand SqlCmd = new SqlCommand("Vehiculo.SP_IngresoVehiculo",SqlCon);
+            SqlCmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                SqlCon.Open();
+                SqlCmd.Parameters.Add(new SqlParameter("Placa", SqlDbType.NVarChar));
+                SqlCmd.Parameters["Placa"].Value = vehiculo.Placa;
+                SqlCmd.Parameters.Add(new SqlParameter("Tipo", SqlDbType.Int));
+                SqlCmd.Parameters["Tipo"].Value = vehiculo.IdTipovehiculo;
+                SqlCmd.ExecuteNonQuery();
+                rpta = "Ingreso Realizado Correctamente";
+            }
+            catch(Exception e)
+            {
+                rpta = e.ToString();
+            }
+            finally
+            {
+                SqlCon.Close();
+            }
+            return rpta;
+        }
     }
 }

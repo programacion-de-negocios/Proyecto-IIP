@@ -27,16 +27,25 @@ namespace Proyecto_IIP
         public MainWindow()
         {
             InitializeComponent();
-            /*
+
+
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
             
-            */
+           
+        }
+
+        private void ListViewItem_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VtnContenedor.Children.Add(new Inicio());
         }
 
         //EVENTO PARA LLAMAR AL METODO Mostrar_Vehiculo
-        private void LbTipo_Vehiculo_SelectionChanged(object sender,SelectionChangedEventArgs e)
-        {
-   
-        }
+
+
     }
 
 }

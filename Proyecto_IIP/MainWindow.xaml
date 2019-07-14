@@ -6,30 +6,39 @@
         xmlns:local="clr-namespace:Proyecto_IIP"
         xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
-    <Grid Background="#FFEEEEEE">
-        <StackPanel>
-            <Grid Background="#008ba3" Height="10"/>
-            <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="299*"/>
-                    <ColumnDefinition Width="96*"/>
-                </Grid.ColumnDefinitions>
-                <Button HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Grid.Column="1">
-                    <MaterialDesign:PackIcon Kind="Power"/>
-                </Button>
+    <Grid Name="ContenedorPrincipal" Background="#FFEEEEEE">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#008ba3">
+            <TextBlock Text="Sistema de Estacionamiento" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
+            <Button HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Black" Margin="0,0,20,0">
+                <MaterialDesign:PackIcon Kind="Power" Width="30" Height="30"/>
+            </Button>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Background="#00bcd4">
+                <ListView Margin="0 50">
+                    <ListViewItem Height="60" MouseUp="ListViewItem_MouseUp">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                            <TextBlock Text="Inicio" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    
+                </ListView>
             </Grid>
-        </StackPanel>
-        <Grid Width="200" HorizontalAlignment="Left" Background="#00bcd4">
-            <ListView Margin="0 100">
-                <ListViewItem Height="60" >
-                    <StackPanel Orientation="Horizontal">
-                        <MaterialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Gray"/>
-                        <TextBlock Text="Inicio" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </ListViewItem>
+            <!--GRID DONDE SE ESTARAN MOSTRANDO TODOS LOS FORMULARIOS-->
+            <Grid Name="VtnContenedor" Grid.Column="1" >
                 
-                
-            </ListView>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

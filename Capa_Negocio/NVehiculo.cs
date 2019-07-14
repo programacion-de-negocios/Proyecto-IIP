@@ -15,5 +15,19 @@ namespace Capa_Negocio
         {
             return new DVehiculo().MostrarVehiculo();
         }
+
+        public static DataTable MostrarTipo()
+        {
+            return new DVehiculo().MostrarTipo();
+        }
+
+        public static string IngresoVehiculo(string Placa, int Tipo)
+        {
+            DVehiculo Obj = new DVehiculo();
+            Obj.Placa = Placa;
+            Obj.IdTipovehiculo = Tipo;
+            return Obj.IngresarVehiculo(Obj);
+        }
+
     }
 }
