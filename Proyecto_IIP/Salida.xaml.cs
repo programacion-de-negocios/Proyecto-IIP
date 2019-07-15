@@ -32,14 +32,22 @@ namespace Proyecto_IIP
 
         private void BtnSalidaVehiculo_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dt = new DataTable();
-            dt=NVehiculo.SalidaVehiculo(TxtPlaca.Text);
-            DataRow dr = dt.Rows[0];
+            if (TxtPlaca.Text != "")
+            {
+                DataTable dt = new DataTable();
+                dt = NVehiculo.SalidaVehiculo(TxtPlaca.Text);
+                DataRow dr = dt.Rows[0];
 
-            factura.TxtTiempo.Text = dr[0].ToString() +" horas con "+ dr[1].ToString() + " minutos.";
-            factura.TxtTotal.Text = dr[2].ToString();
-            
-            factura.ShowDialog();
+                factura.TxtTiempo.Text = dr[0].ToString() + " horas con " + dr[1].ToString() + " minutos.";
+                factura.TxtTotal.Text = dr[2].ToString();
+
+                factura.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Ingrese el numero de placa. ");
+            }
+            TxtPlaca.Clear();
         }
     }
 
