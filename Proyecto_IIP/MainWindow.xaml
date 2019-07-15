@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#008ba3">
             <TextBlock Text="Sistema de Estacionamiento" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
-            <Button HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Black" Margin="0,0,20,0">
+            <Button HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Black" Margin="0,0,20,0" Click="Button_Click">
                 <MaterialDesign:PackIcon Kind="Power" Width="30" Height="30"/>
             </Button>
         </Grid>
@@ -28,13 +28,13 @@
                 <ListView Margin="0 30">
                     <ListViewItem Height="60" MouseUp="ListViewItem_MouseUp">
                         <StackPanel Orientation="Horizontal">
-                            <MaterialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                            <MaterialDesign:PackIcon Kind="AccessTime" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
                             <TextBlock Text="Entrada" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Name="LviSalida" Height="60" MouseUp="LviSalida_MouseUp">
                         <StackPanel Orientation="Horizontal">
-                            <MaterialDesign:PackIcon Kind="Caravan" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                            <MaterialDesign:PackIcon Kind="ExitToApp" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
                             <TextBlock Text="Salida" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
                         </StackPanel>
                     </ListViewItem>

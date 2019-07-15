@@ -8,15 +8,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="390" d:DesignWidth="600">
     <Grid Background="WhiteSmoke">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="Entrada de Vehiculos" Margin="20" FontSize="20"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Codigo de Placa: " FontSize="22" Margin="10"/>
-                <TextBox Name="TxtPlaca" FontSize="22" Width="150" Margin="10"/>
+                <TextBlock Text="Codigo de Placa: " FontSize="20" Margin="10"/>
+                <TextBox Name="TxtPlaca" FontSize="20" Width="150" Margin="10"/>
             </StackPanel>
             
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Tipo de Vehiculo: " FontSize="22" Margin="10"/>
-                <ComboBox Name="cbTipoVehiculo" FontSize="22" Width="150" Margin="10"/>
+                <TextBlock Text="Tipo de Vehiculo: " FontSize="20" Margin="10"/>
+                <ComboBox Name="cbTipoVehiculo" FontSize="20" Width="150" Margin="10"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                 <Button Name="BtnIngresarVehiculo" Background="#80cbc4" BorderBrush="{x:Null}" Width="350" Click="BtnIngresarVehiculo_Click">

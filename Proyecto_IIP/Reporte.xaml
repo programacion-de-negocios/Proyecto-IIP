@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Reporte de Ingresos" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
         <Grid Grid.Row="1" Margin="15">
@@ -68,5 +69,9 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <TextBlock Text="Ingresos Totales: $" FontSize="20"/>
+            <TextBlock Name="tbIngresos" Text="" FontSize="20"/>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -23,8 +23,10 @@ namespace Proyecto_IIP
     /// </summary>
     public partial class Reporte : UserControl
     {
+        private double ingresototal;
         public Reporte()
         {
+
             InitializeComponent();
             DataTable dt = NVehiculo.MostrarReporte();
             IList<ReporteLista> Lista = new List<ReporteLista>();
@@ -39,7 +41,9 @@ namespace Proyecto_IIP
                     Total = dr[4].ToString(),
                     Fecha = dr[5].ToString()
                 });
+                ingresototal = ingresototal + Convert.ToInt32(dr[4]);
             }
+            tbIngresos.Text = ingresototal.ToString();
             LbReporteGeneral.ItemsSource = Lista;
         }
     }

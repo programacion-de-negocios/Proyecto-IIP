@@ -103,7 +103,7 @@ namespace Capa_Datos
             }
             catch(Exception e)
             {
-                rpta = e.ToString();
+                rpta = "El vehiculo ya tiene un tipo establecido. ";
             }
             finally
             {

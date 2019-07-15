@@ -33,8 +33,16 @@ namespace Proyecto_IIP
 
         private void BtnIngresarVehiculo_Click(object sender, RoutedEventArgs e)
         {
-            rpta=NVehiculo.IngresoVehiculo(TxtPlaca.Text, Convert.ToInt32(cbTipoVehiculo.SelectedValue));
-            MessageBox.Show(rpta);
+            if(TxtPlaca.Text!="" && cbTipoVehiculo.SelectedItem != null)
+            {
+                rpta = NVehiculo.IngresoVehiculo(TxtPlaca.Text, Convert.ToInt32(cbTipoVehiculo.SelectedValue));
+                MessageBox.Show(rpta);
+            }
+            else
+            {
+                MessageBox.Show("Seleccione o escriba un valor.");
+            }
+            TxtPlaca.Clear();
         }
     }
 }

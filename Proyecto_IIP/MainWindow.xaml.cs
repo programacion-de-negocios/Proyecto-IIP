@@ -31,8 +31,8 @@ namespace Proyecto_IIP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-           
+            VtnContenedor.Children.Clear();
+            this.Close();
         }
 
         private void ListViewItem_MouseUp(object sender, MouseButtonEventArgs e)

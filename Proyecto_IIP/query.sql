@@ -1,3 +1,4 @@
+--EL QUERY ES CAPAZ DE EJECUTARSE DE UNA SOLA VEZ
 USE tempdb
 GO
 --VERIFICAMOS QUE LA BASE DE DATOS EXISTA
@@ -263,27 +264,27 @@ AS
 		END
 GO
 
---PROCEDIMIENTO PARA EL REPORTE DE INGRESOS
-
---
+--REGISTROS DE PRUEBA
 EXEC Cobro.SP_SuperCobro 'AND6666'
 EXEC Cobro.SP_SuperCobro 'VND1111'
+GO
 
-
-SELECT b.Placa as PLACA, CONVERT (CHAR(5),Hora_Ingreso,108) AS Hora_Entrada,
-CONVERT (CHAR(5),Hora_Salida,108) AS Hora_Salida,
-CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)/60 AS CHAR(2))+':'+
-CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)%60 AS CHAR(2)) AS TIEMPO,Pago AS TOTAL,
-Fecha AS FECHA
-FROM Cobro.Cobro a INNER JOIN Vehiculo.Vehiculo b ON a.Id_Vehiculo= b.Id_Vehiculo 
-WHERE Hora_Salida IS NOT NULL
+--PROCEDIMIENTO PARA EL REPORTE DE INGRESOS
+CREATE PROC Cobro.SP_ReporteGeneral
+AS BEGIN
+	SELECT a.Placa as PLACA,CONVERT (CHAR(5),Hora_Ingreso,108) AS HORA_ENTRADA,
+	CONVERT (CHAR(5),Hora_Salida,108) AS HORA_SALIDA,
+	CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)/60 AS CHAR(2))+':'+
+	CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)%60 AS CHAR(2)) AS TIEMPO,Pago AS TOTAL,
+	Fecha AS FECHA
+	FROM Vehiculo.Vehiculo a INNER JOIN Vehiculo.Tipo_Vehiculo b ON a.Id_Tipo=b.Id_Tipo
+	INNER JOIN Cobro.Cobro c ON a.Id_Vehiculo = c.Id_Vehiculo
+	WHERE Hora_Salida IS NOT NULL
+END
 GO
 
 SELECT * FROM Cobro.Cobro
 GO
-
-
-
 SELECT * FROM Vehiculo.Vehiculo
 GO
 
