@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="Proyecto_IIP.Reporte"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Proyecto_IIP"
+             mc:Ignorable="d" 
+             d:DesignHeight="390" d:DesignWidth="600">
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Reporte de Ingresos" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+        <Grid Grid.Row="1" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Grid.Row="0" Background="#4f9a94">
+                <TextBlock Text="PLACA" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="0" Background="#4f9a94">
+                <TextBlock Text="HORA_ENTRADA" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Grid.Row="0" Background="#4f9a94">
+                <TextBlock Text="HORA_SALIDA" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="3" Grid.Row="0" Background="#4f9a94">
+                <TextBlock Text="TIEMPO" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="4" Grid.Row="0" Background="#4f9a94">
+                <TextBlock Text="TOTAL" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="5" Grid.Row="0" Background="#4f9a94">
+                <TextBlock Text="FECHA" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <ListBox Name="LbReporteGeneral" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="6" Grid.RowSpan="2" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Placa}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Hora_Entrada}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Hora_Salida}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="3" Text="{Binding Tiempo}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="4" Text="{Binding Total}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="5" Text="{Binding Fecha}" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

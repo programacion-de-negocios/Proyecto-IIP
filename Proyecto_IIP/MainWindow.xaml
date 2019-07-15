@@ -53,7 +53,7 @@
                         </StackPanel>
                     </ListViewItem>
 
-                    <ListViewItem Height="60" MouseUp="ListViewItem_MouseUp">
+                    <ListViewItem Name="LviReporteGeneral" Height="60" MouseUp="LviReporteGeneral_MouseUp">
                         <StackPanel Orientation="Horizontal">
                             <MaterialDesign:PackIcon Kind="FileReport" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
                             <TextBlock Text="Reportes" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>

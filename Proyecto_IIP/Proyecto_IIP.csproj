@@ -70,6 +70,9 @@
     <Compile Include="Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reporte.xaml.cs">
+      <DependentUpon>Reporte.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Salida.xaml.cs">
       <DependentUpon>Salida.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Reporte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Salida.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

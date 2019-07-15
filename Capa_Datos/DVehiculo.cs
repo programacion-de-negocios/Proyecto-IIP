@@ -112,12 +112,12 @@ namespace Capa_Datos
             return rpta;
         }
 
+        //Metodo para generar el cobro del vehiculo
         public DataTable SalidaVehiculo(DVehiculo vehiculo)
         {
             DataTable TablaSalida = new DataTable();
             try
             {
-
                 SqlCommand SqlCmd = new SqlCommand("Cobro.SP_SuperCobro", SqlCon);
                 SqlCmd.CommandType = CommandType.StoredProcedure;
                 SqlCon.Open();
@@ -140,6 +140,8 @@ namespace Capa_Datos
             return TablaSalida;
         }
 
+
+        //Metodo para mostrar vehiculos en el estacionamiento
         public DataTable MostrarEstacionamiento()
         {
             DataTable TablaEstacionamiento = new DataTable();
@@ -158,6 +160,27 @@ namespace Capa_Datos
                 TablaEstacionamiento = null;
             }
             return TablaEstacionamiento;
+        }
+
+        //Metodo para generar reporte general
+        public DataTable MostrarReporte()
+        {
+            DataTable TablaReporte = new DataTable();
+            try
+            {
+                SqlCommand SqlCmd = new SqlCommand("Cobro.SP_ReporteGeneral", SqlCon);
+                SqlCmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter sqlData = new SqlDataAdapter(SqlCmd);
+                using (sqlData)
+                {
+                    sqlData.Fill(TablaReporte);
+                }
+            }
+            catch (Exception)
+            {
+                TablaReporte = null;
+            }
+            return TablaReporte;
         }
     }
 }

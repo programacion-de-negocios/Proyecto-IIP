@@ -59,6 +59,12 @@ namespace Proyecto_IIP
             VtnContenedor.Children.Add(new Salida());
         }
 
+        private void LviReporteGeneral_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VtnContenedor.Children.Clear();
+            VtnContenedor.Children.Add(new Reporte());
+        }
+
         //EVENTO PARA LLAMAR AL METODO Mostrar_Vehiculo
 
 
