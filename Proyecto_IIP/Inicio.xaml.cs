@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Capa_Negocio;
-
+using System.Data;
 namespace Proyecto_IIP
 {
     /// <summary>
@@ -33,14 +33,23 @@ namespace Proyecto_IIP
 
         private void BtnIngresarVehiculo_Click(object sender, RoutedEventArgs e)
         {
-            if(TxtPlaca.Text!="" && cbTipoVehiculo.SelectedItem != null)
+            DataTable dt = NVehiculo.VerificarVehiculo(TxtPlaca.Text);
+            if (dt.Rows.Count < 1)
             {
-                rpta = NVehiculo.IngresoVehiculo(TxtPlaca.Text, Convert.ToInt32(cbTipoVehiculo.SelectedValue));
-                MessageBox.Show(rpta);
+                if (TxtPlaca.Text != "" && cbTipoVehiculo.SelectedItem != null)
+                {
+                    rpta = NVehiculo.IngresoVehiculo(TxtPlaca.Text, Convert.ToInt32(cbTipoVehiculo.SelectedValue));
+                    MessageBox.Show(rpta);
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione o escriba un valor.");
+                }
+                
             }
             else
             {
-                MessageBox.Show("Seleccione o escriba un valor.");
+                MessageBox.Show("El vehiculo ya esta en el estacionamiento");
             }
             TxtPlaca.Clear();
         }

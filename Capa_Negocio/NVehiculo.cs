@@ -41,6 +41,12 @@ namespace Capa_Negocio
             Obj.Placa = Placa;
             return Obj.SalidaVehiculo(Obj);
         }
+        public static DataTable VerificarVehiculo(string Placa)
+        {
+            DVehiculo Obj = new DVehiculo();
+            Obj.Placa = Placa;
+            return Obj.VerificarVehiculo(Obj);
+        }
 
     }
 }

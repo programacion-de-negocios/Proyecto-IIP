@@ -151,6 +151,21 @@ AS BEGIN
 END
 GO
 
+--Procedimiento para verificar si el vehiculo esta en el estacionamiento
+CREATE PROC Vehiculo.SP_VerificarVehiculo
+@Placa VARCHAR(8)
+AS 
+DECLARE @IdVehiculo INT
+SELECT @IdVehiculo = a.Id_Vehiculo FROM Vehiculo.Vehiculo a INNER JOIN Cobro.Cobro b ON a.Id_Vehiculo=b.Id_Vehiculo 
+WHERE a.Placa=@Placa and b.Hora_Salida IS NULL
+BEGIN
+	SELECT * FROM Cobro.Cobro WHERE Id_Vehiculo = @IdVehiculo
+END
+GO
+
+EXEC Vehiculo.SP_VerificarVehiculo 'DND3333'
+GO
+
 --PROCEDIMIENTO PARA INGRESO AL PARQUEO
 CREATE PROC Vehiculo.SP_IngresoVehiculo
 @Placa NVARCHAR(8),
@@ -186,10 +201,7 @@ BEGIN TRANSACTION
 COMMIT TRANSACTION
 GO
 
-EXEC Vehiculo.SP_IngresoVehiculo 'AND6666',5
-GO
 --SUPER PROCEDIMIENTO PARA GENERAR EL COBRO!!
-
 CREATE PROC Cobro.SP_SuperCobro
 @Placa VARCHAR(8) 
 AS 
@@ -248,7 +260,7 @@ AS
 
 	IF(@Tipo='Motocicleta')
 		BEGIN
-			SET @total=@total*2
+			SET @total=@total/2
 		END
 	UPDATE Cobro.Cobro SET Pago = @total WHERE Id_Vehiculo=@IdVehiculo
 

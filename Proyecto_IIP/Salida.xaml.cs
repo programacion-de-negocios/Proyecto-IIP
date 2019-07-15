@@ -32,20 +32,28 @@ namespace Proyecto_IIP
 
         private void BtnSalidaVehiculo_Click(object sender, RoutedEventArgs e)
         {
-            if (TxtPlaca.Text != "")
+            DataTable dtv = NVehiculo.VerificarVehiculo(TxtPlaca.Text);
+            if (dtv.Rows.Count > 0)
             {
-                DataTable dt = new DataTable();
-                dt = NVehiculo.SalidaVehiculo(TxtPlaca.Text);
-                DataRow dr = dt.Rows[0];
+                if (TxtPlaca.Text != "")
+                {
+                    DataTable dt = new DataTable();
+                    dt = NVehiculo.SalidaVehiculo(TxtPlaca.Text);
+                    DataRow dr = dt.Rows[0];
 
-                factura.TxtTiempo.Text = dr[0].ToString() + " horas con " + dr[1].ToString() + " minutos.";
-                factura.TxtTotal.Text = dr[2].ToString();
+                    factura.TxtTiempo.Text = dr[0].ToString() + " horas con " + dr[1].ToString() + " minutos.";
+                    factura.TxtTotal.Text = dr[2].ToString();
 
-                factura.ShowDialog();
+                    factura.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese el numero de placa. ");
+                }
             }
             else
             {
-                MessageBox.Show("Ingrese el numero de placa. ");
+                MessageBox.Show("El vehiculo no se encuentra en el estacionamiento");
             }
             TxtPlaca.Clear();
         }

@@ -182,5 +182,33 @@ namespace Capa_Datos
             }
             return TablaReporte;
         }
+
+        public DataTable VerificarVehiculo(DVehiculo vehiculo)
+        {
+            DataTable TablaSalida = new DataTable();
+            try
+            {
+                SqlCommand SqlCmd = new SqlCommand("Vehiculo.SP_VerificarVehiculo", SqlCon);
+                SqlCmd.CommandType = CommandType.StoredProcedure;
+                SqlCon.Open();
+                SqlCmd.Parameters.Add(new SqlParameter("Placa", SqlDbType.NVarChar));
+                SqlCmd.Parameters["Placa"].Value = vehiculo.Placa;
+                SqlDataAdapter sqlData = new SqlDataAdapter(SqlCmd);
+                using (sqlData)
+                {
+                    sqlData.Fill(TablaSalida);
+                }
+            }
+            catch (Exception)
+            {
+                TablaSalida = null;
+            }
+            finally
+            {
+                SqlCon.Close();
+            }
+            return TablaSalida;
+        }
     }
+
 }
