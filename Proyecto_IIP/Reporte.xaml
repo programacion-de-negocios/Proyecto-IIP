@@ -63,7 +63,7 @@
                             <TextBlock Grid.Column="2" Text="{Binding Hora_Salida}" HorizontalAlignment="Center"/>
                             <TextBlock Grid.Column="3" Text="{Binding Tiempo}" HorizontalAlignment="Center"/>
                             <TextBlock Grid.Column="4" Text="{Binding Total}" HorizontalAlignment="Center"/>
-                            <TextBlock Grid.Column="5" Text="{Binding Fecha}" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="5" Text="{Binding Fecha}" HorizontalAlignment="Center" />
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
