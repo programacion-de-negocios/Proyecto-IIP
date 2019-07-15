@@ -61,12 +61,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Estacionamiento.xaml.cs">
+      <DependentUpon>Estacionamiento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Factura.xaml.cs">
+      <DependentUpon>Factura.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Salida.xaml.cs">
+      <DependentUpon>Salida.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vehiculo.xaml.cs">
       <DependentUpon>Vehiculo.xaml</DependentUpon>
     </Compile>
+    <Page Include="Estacionamiento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Factura.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Inicio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,6 +100,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Salida.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vehiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

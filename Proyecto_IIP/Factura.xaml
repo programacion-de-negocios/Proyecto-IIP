@@ -1,0 +1,24 @@
+﻿<Window x:Class="Proyecto_IIP.Factura" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Proyecto_IIP"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="Factura" Height="200" Width="400" ResizeMode="NoResize">
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="Tiempo Total: " FontSize="20"/>
+            <TextBlock Name="TxtTiempo"  FontSize="20"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="Total a pagar: " FontSize="20"/>
+            <TextBlock Name="TxtTotal"  FontSize="20"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

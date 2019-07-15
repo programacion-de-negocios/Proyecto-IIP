@@ -25,14 +25,40 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" Background="#00bcd4">
-                <ListView Margin="0 50">
+                <ListView Margin="0 30">
                     <ListViewItem Height="60" MouseUp="ListViewItem_MouseUp">
                         <StackPanel Orientation="Horizontal">
                             <MaterialDesign:PackIcon Kind="Home" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
-                            <TextBlock Text="Inicio" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
+                            <TextBlock Text="Entrada" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Name="LviSalida" Height="60" MouseUp="LviSalida_MouseUp">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon Kind="Caravan" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                            <TextBlock Text="Salida" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
                         </StackPanel>
                     </ListViewItem>
                     
+                    <ListViewItem Name="LviParqueo" Height="60" MouseUp="LviParqueo_MouseUp">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon Kind="Caravan" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                            <TextBlock Text="Parqueo" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    
+                    <ListViewItem Name="LviVehiculo" Height="60" MouseUp="LviVehiculo_MouseUp">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon Kind="Car" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                            <TextBlock Text="Vehiculos" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <ListViewItem Height="60" MouseUp="ListViewItem_MouseUp">
+                        <StackPanel Orientation="Horizontal">
+                            <MaterialDesign:PackIcon Kind="FileReport" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                            <TextBlock Text="Reportes" FontSize="22" VerticalAlignment="Center" Margin="20 0"/>
+                        </StackPanel>
+                    </ListViewItem>
                 </ListView>
             </Grid>
             <!--GRID DONDE SE ESTARAN MOSTRANDO TODOS LOS FORMULARIOS-->

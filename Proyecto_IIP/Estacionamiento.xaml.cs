@@ -13,35 +13,37 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using System.Data;
-using Capa_Negocio;
-
+using Capa_Negocio; //Namespace para usar la capanegocio
+using System.Data; //Namespace para usar el datatable
 namespace Proyecto_IIP
 {
     /// <summary>
-    /// Interaction logic for Vehiculo.xaml
+    /// Interaction logic for Estacionamiento.xaml
     /// </summary>
-    public partial class Vehiculo : UserControl
+    public partial class Estacionamiento : UserControl
     {
-        public Vehiculo()
+        public Estacionamiento()
         {
             InitializeComponent();
-            DataTable dt = NVehiculo.MostrarVehiculo();
-            IList<VehiculoLista> Lista = new List<VehiculoLista>();
+            DataTable dt = NVehiculo.MostrarEstacionamiento();
+            IList<EstacionamientoLista> Lista = new List<EstacionamientoLista>();
             foreach (DataRow dr in dt.Rows)
             {
-                Lista.Add(new VehiculoLista
+                Lista.Add(new EstacionamientoLista
                 {
                     Placa = dr[0].ToString(),
                     Tipo_Vehiculo = dr[1].ToString(),
+                    Hora_Ingreso = dr[2].ToString()
                 });
             }
-            LbVehiculo.ItemsSource = Lista;
+            LbEstacionamiento.ItemsSource = Lista;
+
         }
     }
-    public class VehiculoLista
+    public class EstacionamientoLista
     {
         public string Placa { get; set; }
         public string Tipo_Vehiculo { get; set; }
+        public string Hora_Ingreso { get; set; }
     }
 }

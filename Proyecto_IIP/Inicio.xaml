@@ -18,15 +18,14 @@
                 <TextBlock Text="Tipo de Vehiculo: " FontSize="22" Margin="10"/>
                 <ComboBox Name="cbTipoVehiculo" FontSize="22" Width="150" Margin="10"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                 <Button Name="BtnIngresarVehiculo" Background="#80cbc4" BorderBrush="{x:Null}" Width="350" Click="BtnIngresarVehiculo_Click">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <MaterialDesign:PackIcon Kind="Car" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
-                        <TextBlock Text="Ingresar Vehiculo" FontSize="22" VerticalAlignment="Center" Margin="20 0" Foreground="Black"/>
+                        <MaterialDesign:PackIcon Kind="Car" Width="20" Height="20" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                        <TextBlock Text="Ingresar Vehiculo" FontSize="20" VerticalAlignment="Center" Margin="20 0" Foreground="Black"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
-
         </StackPanel>
     </Grid>
 </UserControl>

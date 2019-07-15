@@ -22,7 +22,6 @@ namespace Capa_Datos
         {
             
         }
-
         public int IdVehiculo
         {
             get { return _IdVehiculo; }
@@ -44,6 +43,7 @@ namespace Capa_Datos
             set { _TextoBuscar = value; }
         }
 
+        //Metodo para mostrar el vehiculo
         public DataTable MostrarVehiculo()
         {
             DataTable TablaVehiculo = new DataTable();
@@ -63,6 +63,8 @@ namespace Capa_Datos
             }
             return TablaVehiculo;
         }
+
+        //Metodo para mostrar el tipo de vehiculo
         public DataTable MostrarTipo()
         {
             DataTable TablaTipoVehiculo = new DataTable();
@@ -83,6 +85,7 @@ namespace Capa_Datos
             return TablaTipoVehiculo;
         }
 
+        //Metodo para Ingresar Vehiculos al estacionamiento
         public string IngresarVehiculo(DVehiculo vehiculo)
         {
             string rpta="";
@@ -107,6 +110,54 @@ namespace Capa_Datos
                 SqlCon.Close();
             }
             return rpta;
+        }
+
+        public DataTable SalidaVehiculo(DVehiculo vehiculo)
+        {
+            DataTable TablaSalida = new DataTable();
+            try
+            {
+
+                SqlCommand SqlCmd = new SqlCommand("Cobro.SP_SuperCobro", SqlCon);
+                SqlCmd.CommandType = CommandType.StoredProcedure;
+                SqlCon.Open();
+                SqlCmd.Parameters.Add(new SqlParameter("Placa", SqlDbType.NVarChar));
+                SqlCmd.Parameters["Placa"].Value = vehiculo.Placa;
+                SqlDataAdapter sqlData = new SqlDataAdapter(SqlCmd);
+                using (sqlData)
+                {
+                    sqlData.Fill(TablaSalida);
+                }
+            }
+            catch (Exception)
+            {
+                TablaSalida = null;
+            }
+            finally
+            {
+                SqlCon.Close();
+            }
+            return TablaSalida;
+        }
+
+        public DataTable MostrarEstacionamiento()
+        {
+            DataTable TablaEstacionamiento = new DataTable();
+            try
+            {
+                SqlCommand SqlCmd = new SqlCommand("Vehiculo.SP_MostrarEstacionamiento", SqlCon);
+                SqlCmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter sqlData = new SqlDataAdapter(SqlCmd);
+                using (sqlData)
+                {
+                    sqlData.Fill(TablaEstacionamiento);
+                }
+            }
+            catch (Exception)
+            {
+                TablaEstacionamiento = null;
+            }
+            return TablaEstacionamiento;
         }
     }
 }

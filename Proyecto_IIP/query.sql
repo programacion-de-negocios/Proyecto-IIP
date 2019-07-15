@@ -44,9 +44,12 @@ CREATE TABLE Cobro.Cobro(
 	Hora_Ingreso TIME (0) NOT NULL
 		DEFAULT GETDATE(),
 	Hora_Salida TIME (0),
+
 	Fecha DATE NOT NULL
-		DEFAULT GETDATE()
+		DEFAULT GETDATE(),
+	Pago DECIMAL(10,2)
 )
+GO
 
 --CREACION DE LAS LLAVES FORANEAS
 ALTER TABLE Vehiculo.Vehiculo
@@ -123,7 +126,6 @@ GO
 
 
 --PROCEDIMIENTOS ALMACENADOS
-
 CREATE PROC Vehiculo.SP_MostrarVehiculo
 AS BEGIN
 	SELECT a.Placa AS PLACA,b.Nombre AS TIPO, a.Id_Vehiculo, b.Id_Tipo,a.Placa FROM Vehiculo.Vehiculo a INNER JOIN Vehiculo.Tipo_Vehiculo b 
@@ -131,11 +133,23 @@ AS BEGIN
 END
 GO
 
+--Procedimiento para mostrar tipos de vehiculo
 CREATE PROC Vehiculo.SP_MostrarTipo
 AS BEGIN
 	SELECT * FROM Vehiculo.Tipo_Vehiculo
 END
 GO
+
+--Procedimiento para mostrar que vehiculos estan en el estacionamiento
+CREATE PROC Vehiculo.SP_MostrarEstacionamiento
+AS BEGIN
+	SELECT a.Placa,b.Nombre AS Tipo_Vehiculo, CONVERT(CHAR(5),c.Hora_Ingreso,108) AS Hora_Ingreso 
+	FROM Vehiculo.Vehiculo a INNER JOIN Vehiculo.Tipo_Vehiculo b
+	ON a.Id_Tipo = b.Id_Tipo INNER JOIN Cobro.Cobro c ON a.Id_Vehiculo = c.Id_Vehiculo  
+	WHERE c.Hora_Salida IS NULL
+END
+GO
+
 --PROCEDIMIENTO PARA INGRESO AL PARQUEO
 CREATE PROC Vehiculo.SP_IngresoVehiculo
 @Placa NVARCHAR(8),
@@ -176,7 +190,7 @@ GO
 --SUPER PROCEDIMIENTO PARA GENERAR EL COBRO!!
 
 CREATE PROC Cobro.SP_SuperCobro
-@IdVehiculo INT 
+@Placa VARCHAR(8) 
 AS 
 	--Variables necesarias
 	DECLARE @total DECIMAL(10,2)
@@ -184,6 +198,9 @@ AS
 	DECLARE @Minutos INT
 	DECLARE @Tipo NVARCHAR(20)
 	DECLARE @Dnulo CHAR(10)
+	DECLARE @IdVehiculo INT
+
+	SELECT @IdVehiculo = Id_Vehiculo FROM Vehiculo.Vehiculo WHERE Placa=@Placa
 	BEGIN TRANSACTION
 	--Verificamos que su hora de salida sea nula
 	SELECT @Dnulo= Hora_Salida FROM Cobro.Cobro WHERE Id_Vehiculo=@IdVehiculo
@@ -232,8 +249,9 @@ AS
 		BEGIN
 			SET @total=@total*2
 		END
+	UPDATE Cobro.Cobro SET Pago = @total WHERE Id_Vehiculo=@IdVehiculo
 
-	SELECT CAST(@Horas as CHAR(1)) +':'+ CAST(@Minutos as CHAR(2)) AS TIEMPO, 
+	SELECT CAST(@Horas as CHAR(2)) AS HORAS ,CAST(@Minutos as CHAR(2)) AS MINUTOS, 
 	+'$.'+CAST (@total AS char)  AS TOTAL, CAST (@Tipo AS NVARCHAR) AS TIPO
 	IF(@Dnulo IS NULL)
 		BEGIN
@@ -247,14 +265,23 @@ GO
 
 --PROCEDIMIENTO PARA EL REPORTE DE INGRESOS
 
-EXEC Cobro.SP_SuperCobro @IdVehiculo=3
-GO
+--
+EXEC Cobro.SP_SuperCobro 'AND6666'
+EXEC Cobro.SP_SuperCobro 'VND1111'
 
-EXEC Cobro.SP_SuperCobro @IdVehiculo=22
+
+SELECT b.Placa as PLACA, CONVERT (CHAR(5),Hora_Ingreso,108) AS Hora_Entrada,
+CONVERT (CHAR(5),Hora_Salida,108) AS Hora_Salida,
+CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)/60 AS CHAR(2))+':'+
+CAST(DATEDIFF(MINUTE,Hora_Ingreso,Hora_Salida)%60 AS CHAR(2)) AS TIEMPO,Pago AS TOTAL,
+Fecha AS FECHA
+FROM Cobro.Cobro a INNER JOIN Vehiculo.Vehiculo b ON a.Id_Vehiculo= b.Id_Vehiculo 
+WHERE Hora_Salida IS NOT NULL
 GO
 
 SELECT * FROM Cobro.Cobro
 GO
+
 
 
 SELECT * FROM Vehiculo.Vehiculo

@@ -27,9 +27,6 @@ namespace Proyecto_IIP
         public MainWindow()
         {
             InitializeComponent();
-
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -40,7 +37,26 @@ namespace Proyecto_IIP
 
         private void ListViewItem_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            VtnContenedor.Children.Clear();
             VtnContenedor.Children.Add(new Inicio());
+        }
+
+        private void LviParqueo_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VtnContenedor.Children.Clear();
+            VtnContenedor.Children.Add(new Estacionamiento());
+        }
+
+        private void LviVehiculo_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VtnContenedor.Children.Clear();
+            VtnContenedor.Children.Add(new Vehiculo());
+        }
+
+        private void LviSalida_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VtnContenedor.Children.Clear();
+            VtnContenedor.Children.Add(new Salida());
         }
 
         //EVENTO PARA LLAMAR AL METODO Mostrar_Vehiculo
