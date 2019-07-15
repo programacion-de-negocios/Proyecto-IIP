@@ -33,23 +33,23 @@ namespace Proyecto_IIP
 
         private void BtnIngresarVehiculo_Click(object sender, RoutedEventArgs e)
         {
-            DataTable dt = NVehiculo.VerificarVehiculo(TxtPlaca.Text);
-            if (dt.Rows.Count < 1)
+   
+            if (TxtPlaca.Text != "" && cbTipoVehiculo.SelectedItem != null)
             {
-                if (TxtPlaca.Text != "" && cbTipoVehiculo.SelectedItem != null)
+                DataTable dt = NVehiculo.VerificarVehiculo(TxtPlaca.Text);
+                if (dt.Rows.Count < 1)
                 {
                     rpta = NVehiculo.IngresoVehiculo(TxtPlaca.Text, Convert.ToInt32(cbTipoVehiculo.SelectedValue));
                     MessageBox.Show(rpta);
                 }
                 else
                 {
-                    MessageBox.Show("Seleccione o escriba un valor.");
+                    MessageBox.Show("El vehiculo ya esta en el estacionamiento");
                 }
-                
             }
             else
             {
-                MessageBox.Show("El vehiculo ya esta en el estacionamiento");
+                MessageBox.Show("Seleccione o escriba un valor.");
             }
             TxtPlaca.Clear();
         }
